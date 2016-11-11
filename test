@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args){
+		Scanner scan = new Scanner(System.in);
+        while (scan.hasNext()) {
+        	
+	    	String s = scan.next();
+    		System.out.println(maxLength(s));
+
+	    }
+	}
+	public static int maxLength(String s){  
+		
+	    char[] schar = s.toCharArray();
+	    int start = 0;
+	    int state = 0;
+	    int result = 0;  
+	    int[] list = new int[125];
+	    int len = schar.length;
+	    
+	    int i = 0;
+	    while(i<len){
+	    	char c = schar[i];
+	    	
+	    	if(list[c]==0){  
+                list[c] = i+1;
+	            state ++; 
+	            if(state > result){  
+	                result = state;
+	            }  
+	        }else{  
+	            int end = list[c] -1;
+	            for(int j=start;j<end;j++ ){ 
+	                list[schar[i]] = 0;
+	            }  
+	            start = end + 1;  
+	            list[schar[i]] = i+1;  
+	            state = i-end;  
+	        }  
+	    	
+	    	i++;
+	    }
+	    
+	    return result;  
+	} 
+}
